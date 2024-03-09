@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode, CSSProperties } from 'react';
+import { StrictMode, CSSProperties, useState, FormEvent } from 'react';
 import clsx from 'clsx';
 
 import { Article } from './components/article/Article';
@@ -13,19 +13,45 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 const App = () => {
+	const [pageState, setPageState] = useState(defaultArticleState);
+	const [formState, setFormState] = useState(defaultArticleState);
+
+	const formReset = () => {
+		setFormState(defaultArticleState);
+		setPageState(defaultArticleState);
+	};
+
+	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		setPageState({
+			...pageState,
+			fontFamilyOption: formState.fontFamilyOption,
+			fontSizeOption: formState.fontSizeOption,
+			fontColor: formState.fontColor,
+			contentWidth: formState.contentWidth,
+			backgroundColor: formState.backgroundColor,
+		});
+	};
+
 	return (
 		<div
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': defaultArticleState.fontFamilyOption.value,
-					'--font-size': defaultArticleState.fontSizeOption.value,
-					'--font-color': defaultArticleState.fontColor.value,
-					'--container-width': defaultArticleState.contentWidth.value,
-					'--bg-color': defaultArticleState.backgroundColor.value,
+					'--font-family': pageState.fontFamilyOption.value,
+					'--font-size': pageState.fontSizeOption.value,
+					'--font-color': pageState.fontColor.value,
+					'--container-width': pageState.contentWidth.value,
+					'--bg-color': pageState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm />
+			<ArticleParamsForm
+				formState={formState}
+				setFormState={setFormState}
+				formReset={formReset}
+				formSubmit={formSubmit}
+			/>
 			<Article />
 		</div>
 	);
