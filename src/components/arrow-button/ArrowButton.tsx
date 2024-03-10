@@ -14,20 +14,18 @@ type ArrowButtonProps = {
 
 export const ArrowButton = (props: ArrowButtonProps) => {
 	return (
-		/* Не забываем указаывать role и aria-label атрибуты для интерактивных элементов */
 		<div
 			onClick={props.toggleState}
 			role='button'
 			aria-label='Открыть/Закрыть форму параметров статьи'
 			tabIndex={0}
-			className={clsx(
-				styles.container,
-				props.state ? styles.container_open : ''
-			)}>
+			className={clsx(styles.container, {
+				[styles.container_open]: props.state,
+			})}>
 			<img
 				src={arrow}
 				alt='иконка стрелочки'
-				className={clsx(styles.arrow, props.state ? styles.arrow_open : '')}
+				className={clsx(styles.arrow, { [styles.arrow_open]: props.state })}
 			/>
 		</div>
 	);
