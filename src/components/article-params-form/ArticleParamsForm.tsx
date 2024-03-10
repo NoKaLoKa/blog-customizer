@@ -24,7 +24,7 @@ type ArticleParamsForm = {
 	formSubmit: (e: FormEvent<HTMLFormElement>) => void;
 };
 
-export const ArticleParamsForm = (props: ArticleParamsForm) => {
+export function ArticleParamsForm(props: ArticleParamsForm) {
 	const [state, setState] = useState(false);
 
 	const toggleState = () => {
@@ -141,4 +141,4 @@ export const ArticleParamsForm = (props: ArticleParamsForm) => {
 			</aside>
 		</>
 	);
-};
+}
