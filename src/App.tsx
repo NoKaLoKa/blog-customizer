@@ -11,12 +11,12 @@ export const App = () => {
 	const [pageState, setPageState] = useState(defaultArticleState);
 	const [formState, setFormState] = useState(defaultArticleState);
 
-	const formReset = () => {
+	const resetForm = () => {
 		setFormState(defaultArticleState);
 		setPageState(defaultArticleState);
 	};
 
-	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const submitForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		setPageState({
@@ -30,7 +30,7 @@ export const App = () => {
 	};
 
 	return (
-		<div
+		<main
 			className={styles.main}
 			style={
 				{
@@ -44,10 +44,10 @@ export const App = () => {
 			<ArticleParamsForm
 				formState={formState}
 				setFormState={setFormState}
-				resetForm={formReset}
-				submitForm={formSubmit}
+				resetForm={resetForm}
+				submitForm={submitForm}
 			/>
 			<Article />
-		</div>
+		</main>
 	);
 };
